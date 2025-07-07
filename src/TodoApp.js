@@ -6,7 +6,7 @@ import "./styles.css";
 export default function TodoApp() {
   return (
     <div className="todo-app">
-      <h1 className="title">Todo List</h1>
+      <h1 className="title">IAG Loyalty Todo List</h1>
       <TodoList />
       <Form />
     </div>

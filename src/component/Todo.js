@@ -19,7 +19,7 @@ const Todo = ({ todo }) => {
         onClick={handleDelete}
         style={{ marginLeft: "1rem" }}
       >
-        <FaTrash />
+        <FaTrash size={20} />
       </button>
     </li>
   );
