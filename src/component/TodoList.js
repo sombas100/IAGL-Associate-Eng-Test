@@ -1,34 +1,28 @@
-import React, {Component} from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTodos } from "../actions";
 import Todo from "./Todo";
-import {fetchTodos} from "../actions";
-import {connect} from "react-redux";
 
-class TodoList extends Component {
-  state = {};
+const TodoList = () => {
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.data?.todos || []);
 
-  componentDidMount() {
-    this.props.fetchTodos();
-  }
 
-  render() {
-    const {todos} = this.props.data;
-    return (<ul className="todo-list">
-      {todos && todos.length
-        ? todos.map((todo, index) => {
-          return <Todo key={`todo-${index}`} todo={todo.task}/>;
-        })
-        : "No todos, yay!"}
-    </ul>);
-  }
-}
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]); 
 
-const mapStateToProps = ({data = {}, isLoadingData = false}) => ({
-  data,
-  isLoadingData
-});
-export default connect(
-  mapStateToProps,
-  {
-    fetchTodos
-  }
-)(TodoList);
+  return (
+    <ul className="todo-list">
+      {todos.length ? (
+        todos.map((todo, index) => (
+          <Todo key={`todo-${index}`} todo={todo.task} />
+        ))
+      ) : (
+        <p>No todos, yay!</p>
+      )}
+    </ul>
+  );
+};
+
+export default TodoList;
